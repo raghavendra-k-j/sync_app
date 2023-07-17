@@ -1,6 +1,7 @@
 package com.example.syncapp.services.file;
 
 import com.example.syncapp.exceptions.DefaultException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -13,6 +14,8 @@ import java.nio.file.Paths;
 @Service
 public class FileServiceImpl implements FileService {
 
+
+    @Value("${file.upload.directory}")
     public static final String UPLOAD_DIRECTORY = "D:/uploads/";
 
     @Override
