@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Base64;
 
 @RestController
@@ -42,33 +41,37 @@ public class FilesController {
         }
     }
 
-//    @PostMapping("file")
-//    public ResponseEntity<Response> upload(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
-//        Response response = new Response();
-//        try {
-//            boolean isUploadSuccessfully = fileService.uploadFile(file.getBytes(), fileName);
-//            response.addProperty("success", isUploadSuccessfully);
-//            return ResponseEntity.ok().body(response);
-//        } catch (DefaultException defaultException) {
-//            return ResponseEntity.badRequest().body(response.setError(defaultException));
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(response.setError(e.getMessage()));
-//        }
-//    }
-//
-//    @PostMapping("file")
-//    public ResponseEntity<Response> upload(@RequestParam("file") MultipartFile file) {
-//        Response response = new Response();
-//        try {
-//            boolean isUploadSuccessfully = fileService.uploadFile(file.getBytes(), file.getName());
-//            response.addProperty("success", isUploadSuccessfully);
-//            return ResponseEntity.ok().body(response);
-//        } catch (DefaultException defaultException) {
-//            return ResponseEntity.badRequest().body(response.setError(defaultException));
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(response.setError(e.getMessage()));
-//        }
-//    }
+    /*
+    //for sending file as multipart form data with separate file name
+    @PostMapping("file")
+    public ResponseEntity<Response> upload(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
+        Response response = new Response();
+        try {
+            boolean isUploadSuccessfully = fileService.uploadFile(file.getBytes(), fileName);
+            response.addProperty("success", isUploadSuccessfully);
+            return ResponseEntity.ok().body(response);
+        } catch (DefaultException defaultException) {
+            return ResponseEntity.badRequest().body(response.setError(defaultException));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(response.setError(e.getMessage()));
+        }
+    }
+
+    // for sending multiple part form data with same file name as sent file
+    @PostMapping("file")
+    public ResponseEntity<Response> upload(@RequestParam("file") MultipartFile file) {
+        Response response = new Response();
+        try {
+            boolean isUploadSuccessfully = fileService.uploadFile(file.getBytes(), file.getName());
+            response.addProperty("success", isUploadSuccessfully);
+            return ResponseEntity.ok().body(response);
+        } catch (DefaultException defaultException) {
+            return ResponseEntity.badRequest().body(response.setError(defaultException));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(response.setError(e.getMessage()));
+        }
+    }
+    */
 
 }
 
