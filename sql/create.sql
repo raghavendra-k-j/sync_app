@@ -1,54 +1,48 @@
-DROP DATABASE IF EXISTS sync_app;
-DROP DATABASE IF EXISTS railway;
-CREATE DATABASE railway;
-USE railway;
+-- Table structure for table `books`
+CREATE TABLE `books` (
+  `id` varchar(60) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `content` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `title` (`title`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `books_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-SET FOREIGN_KEY_CHECKS = 0;
+-- Table structure for table `noteattachments`
+CREATE TABLE `noteattachments` (
+  `id` varchar(60) NOT NULL,
+  `noteId` varchar(60) NOT NULL,
+  `caption` varchar(255) DEFAULT NULL,
+  `fileName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `noteId` (`noteId`),
+  CONSTRAINT `noteattachments_ibfk_1` FOREIGN KEY (`noteId`) REFERENCES `notes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS notes;
-DROP TABLE IF EXISTS noteAttachments;
-DROP TABLE IF EXISTS books;
+-- Table structure for table `notes`
+CREATE TABLE `notes` (
+  `id` varchar(60) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text,
+  `thumbnail` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `notes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-SET FOREIGN_KEY_CHECKS = 1;
-
-CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  email VARCHAR(60) NOT NULL UNIQUE,
-  name VARCHAR(60) NOT NULL,
-  password VARCHAR(20) NOT NULL,
-  createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO users VALUES(1, "raghu@gmail.com", "Raghu", "Password@123", utc_timestamp());
-INSERT INTO users VALUES(2, "jogn@gmail.com", "John", "Password@321", utc_timestamp());
-
-
-CREATE TABLE notes (
-  id VARCHAR(60) PRIMARY KEY NOT NULL,
-  userId INT NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  content TEXT,
-  thumbnail VARCHAR(255),
-  FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE noteAttachments (
-   id VARCHAR(60) PRIMARY KEY NOT NULL,
-  noteId VARCHAR(60) NOT NULL,
-  caption VARCHAR(255),
-  fileName VARCHAR(255),
-  FOREIGN KEY (noteId) REFERENCES notes(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE books (
-	id VARCHAR(60) PRIMARY KEY NOT NULL,
-  userId INT NOT NULL,
-  title VARCHAR(255) NOT NULL UNIQUE,
-  author VARCHAR(255) NOT NULL,
-  content TEXT,
-  FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
+-- Table structure for table `users`
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(60) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
